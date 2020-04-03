@@ -1,12 +1,17 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <button v-on:click="changeTitle">Thay đổi text header</button>
+    <button v-on:click="changeTitle">Thay đổi text header ở component cha</button>
     <h1>{{ msg }}</h1>
     <header-component 
       v-bind:say-hello="sayHello" 
       v-on:handleTitleEvent="handleTitleEvent"/>
-    <list-user-component v-bind:list-user="listUser" />
+    <list-user-component v-bind:list-user="listUser" v-on:deleteUser="deleteUser" />
+
+    <div class="demo">
+      <demo-ref />
+    </div>
+
     <footer-component />
   </div>
 </template>
@@ -15,6 +20,7 @@
   import HeaderComponent from './components/HeaderComponent.vue'
   import FooterComponent from './components/FooterComponent.vue'
   import ListUserComponent from './components/ListUserComponent.vue'
+  import DemoRef from "./components/DemoRef.vue";
 
   export default {
     name: 'app',
@@ -30,9 +36,10 @@
       }
     },
     components: {
+      DemoRef,
       HeaderComponent,
       FooterComponent,
-      ListUserComponent
+      ListUserComponent,
     },
     methods: {
       changeTitle() {
@@ -40,6 +47,9 @@
       },
       handleTitleEvent(data) {
         this.sayHello = data.sayHello;
+      },
+      deleteUser(index) {
+        this.listUser.splice(index, 1);
       }
     }
   }

@@ -4,7 +4,8 @@
     <user-component 
       v-for="(user, index) in listUser" 
       v-bind:key="index" 
-      v-bind:user="user" />
+      v-bind:user="user"
+      v-on:deleteUser="deleteUser" />
   </div>
 </template>
 
@@ -26,8 +27,15 @@
         type: Array,
         default: []
       }
+    },
+    methods: {
+      deleteUser(index) {
+        this.$emit('deleteUser', index);
+      }
     }
   }
 </script>
 
-<style></style>
+<style>
+
+</style>
